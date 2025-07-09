@@ -1,160 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<title>Rádio WebRTC - Botão comunicador</title>
-<link rel="icon" href="data:,">
-<style>
-  /* Fundo preto total */
-  body {
-    margin: 0;
-    height: 100vh;
-    background-color: #000000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #eee;
-    user-select: none;
-    padding: 20px;
-    text-align: center;
-  }
+  <meta charset="UTF-8" />
+  <title>Rádio WebRTC - Botão comunicador</title>
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      user-select: none;
+      padding: 20px;
+      text-align: center;
+    }
 
-  h2 {
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-shadow: 0 0 8px #ff3b3b;
-  }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-shadow: 0 0 8px #ff3b3b;
+    }
 
-  /* Inputs e botões de sala */
-  input, button#host, button#join {
-    font-size: 1rem;
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
-    margin: 8px;
-    outline: none;
-    max-width: 220px;
-    width: 100%;
-    box-sizing: border-box;
-    user-select: text;
-    transition: background-color 0.3s ease;
-  }
+    input, button#host, button#join {
+      font-size: 1rem;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      margin: 8px;
+      outline: none;
+      max-width: 220px;
+      width: 100%;
+      box-sizing: border-box;
+      user-select: text;
+      transition: background-color 0.3s ease;
+    }
 
-  button#host, button#join {
-    background-color: #ff3b3b;
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px #b80000;
-  }
+    button#host, button#join {
+      background-color: #ff3b3b;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #b80000;
+    }
 
-  button#host:hover:not(:disabled),
-  button#join:hover:not(:disabled) {
-    background-color: #e23131;
-  }
+    button#host:hover:not(:disabled),
+    button#join:hover:not(:disabled) {
+      background-color: #e23131;
+    }
 
-  button#host:disabled,
-  button#join:disabled {
-    background-color: #666;
-    cursor: not-allowed;
-  }
+    button#host:disabled,
+    button#join:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+    }
 
-  /* Botão principal de falar */
-  #talk {
-    margin-top: 40px;
-    width: 190px;
-    height: 190px;
-    background: radial-gradient(circle at top left, #ff4b4b, #b30000);
-    border-radius: 50%;
-    border: 4px solid #ff2a2a;
-    color: white;
-    font-size: 2.6rem;
-    font-weight: 900;
-    cursor: pointer;
-    outline: none;
-    box-shadow:
-      0 15px 20px rgba(255, 59, 59, 0.75),
-      inset 0 -6px 10px rgba(255, 255, 255, 0.25),
-      inset 0 6px 15px rgba(255, 0, 0, 0.4);
-    transition:
-      transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
+    #talk {
+      margin-top: 40px;
+      width: 190px;
+      height: 190px;
+      background: radial-gradient(circle at top left, #ff4b4b, #b30000);
+      border-radius: 50%;
+      border: 4px solid #ff2a2a;
+      color: white;
+      font-size: 2.6rem;
+      font-weight: 900;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        0 15px 20px rgba(255, 59, 59, 0.75),
+        inset 0 -6px 10px rgba(255, 255, 255, 0.25),
+        inset 0 6px 15px rgba(255, 0, 0, 0.4);
+      transition:
+        transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  /* Efeito pressionado - movimento e sombra */
-  #talk.pressed {
-    transform: scale(0.88) translateY(6px);
-    box-shadow:
-      0 6px 8px rgba(255, 20, 20, 0.8),
-      inset 0 8px 15px rgba(255, 255, 255, 0.35),
-      inset 0 -8px 10px rgba(255, 0, 0, 0.7);
-  }
+    #talk.pressed {
+      transform: scale(0.88) translateY(6px);
+      box-shadow:
+        0 6px 8px rgba(255, 20, 20, 0.8),
+        inset 0 8px 15px rgba(255, 255, 255, 0.35),
+        inset 0 -8px 10px rgba(255, 0, 0, 0.7);
+    }
 
-  /* Desabilitado */
-  #talk:disabled {
-    background: #330000;
-    box-shadow: none;
-    color: #700000;
-    cursor: not-allowed;
-  }
-</style>
+    #talk:disabled {
+      background: #330000;
+      box-shadow: none;
+      color: #700000;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
 
-<h2>📻 Rádio PTT com PeerJS</h2>
+  <h2>📻 Rádio PTT com PeerJS</h2>
 
-<input type="text" id="room" placeholder="Nome da sala" />
-<button id="host">Criar Sala</button>
-<button id="join">Entrar</button>
+  <input type="text" id="room" placeholder="Nome da sala" />
+  <button id="host">Criar Sala</button>
+  <button id="join">Entrar</button>
 
-<button id="talk" disabled>🎙️</button>
-<audio id="remoteAudio" autoplay></audio>
+  <button id="talk" disabled>🎙️</button>
+  <audio id="remoteAudio" autoplay></audio>
 
-<!-- Sons estilo rádio -->
-<audio id="startSound" src="https://github.com/liugarcia/ptt/raw/refs/heads/main/radio-338296.mp3" preload="auto"></audio>
-<audio id="endSound" src="https://github.com/liugarcia/ptt/raw/refs/heads/main/radio-338296.mp3" preload="auto"></audio>
+  <!-- Sons estilo rádio -->
+  <audio id="startSound" src="https://github.com/liugarcia/ptt/raw/refs/heads/main/radio-338296.mp3" preload="auto"></audio>
+  <audio id="endSound" src="https://github.com/liugarcia/ptt/raw/refs/heads/main/radio-338296.mp3" preload="auto"></audio>
 
-<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
-<script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="script.js"></script>
 
-<script>
-  // Controla o efeito visual pressionado no botão talk
+  <script>
+    const talkBtn = document.getElementById('talk');
 
-  const talkBtn = document.getElementById('talk');
+    function ativarBotao() {
+      talkBtn.classList.add('pressed');
+    }
 
-  function ativarBotao() {
-    talkBtn.classList.add('pressed');
-  }
+    function desativarBotao() {
+      talkBtn.classList.remove('pressed');
+    }
 
-  function desativarBotao() {
-    talkBtn.classList.remove('pressed');
-  }
+    // Eventos para Desktop
+    talkBtn.addEventListener('mousedown', ativarBotao);
+    talkBtn.addEventListener('mouseup', desativarBotao);
+    talkBtn.addEventListener('mouseleave', desativarBotao);
 
-  // Eventos desktop
-  talkBtn.addEventListener('mousedown', () => {
-    ativarBotao();
-  });
-  talkBtn.addEventListener('mouseup', () => {
-    desativarBotao();
-  });
-  talkBtn.addEventListener('mouseleave', () => {
-    desativarBotao();
-  });
+    // Eventos para Mobile
+    talkBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      ativarBotao();
+    });
 
-  // Eventos mobile
-  talkBtn.addEventListener('touchstart', e => {
-    e.preventDefault();
-    ativarBotao();
-  });
-  talkBtn.addEventListener('touchend', e => {
-    e.preventDefault();
-    desativarBotao();
-  });
-</script>
+    talkBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      desativarBotao();
+    });
+  </script>
 
 </body>
 </html>
