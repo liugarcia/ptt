@@ -1,14 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Rádio WebRTC</title>
   <link rel="icon" href="data:,">
   <style>
-    body { font-family: sans-serif; padding: 20px; text-align: center; }
-    input, button { padding: 10px; font-size: 16px; margin: 5px; }
-    #talk { background: #ff5252; color: white; border: none; border-radius: 8px; font-size: 18px; }
-    #talk:disabled { background: #ccc; }
+    /* Fundo preto */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      user-select: none;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Botão grande, redondo e centralizado */
+    #talk {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(145deg, #ff3b3b, #b80000);
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-size: 2.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        0 6px 15px rgba(255, 59, 59, 0.8),
+        inset 0 -4px 6px rgba(255, 255, 255, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      user-select: none;
+      margin-top: 30px;
+    }
+
+    /* Efeito ao pressionar */
+    #talk:active {
+      transform: scale(0.9) translateY(4px);
+      box-shadow:
+        0 2px 6px rgba(255, 59, 59, 0.6),
+        inset 0 4px 8px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Botão disabled */
+    #talk:disabled {
+      background: #444;
+      cursor: not-allowed;
+      box-shadow: none;
+      color: #999;
+    }
+
+    /* Input e botões da sala */
+    input, button#host, button#join {
+      font-size: 1rem;
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: none;
+      margin: 5px;
+      outline: none;
+      max-width: 220px;
+      width: 100%;
+      box-sizing: border-box;
+      user-select: text;
+    }
+
+    button#host, button#join {
+      background: #ff3b3b;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 8px #b80000;
+      transition: background-color 0.3s ease;
+    }
+
+    button#host:hover:not(:disabled),
+    button#join:hover:not(:disabled) {
+      background: #e23131;
+    }
+
+    button#host:disabled,
+    button#join:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    /* Cabeçalho */
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-shadow: 0 0 5px #ff3b3b;
+    }
   </style>
 </head>
 <body>
@@ -18,7 +106,6 @@
   <button id="host">Criar Sala</button>
   <button id="join">Entrar</button>
 
-  <br><br>
   <button id="talk" disabled>🎙️ Segure para Falar</button>
   <audio id="remoteAudio" autoplay></audio>
 
