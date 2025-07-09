@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rádio WebRTC</title>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <h2>Rádio PTT com PeerJS</h2>
+  <div>
+    <input type="text" id="room" placeholder="Nome da sala" />
+    <button id="host">Criar Sala</button>
+    <button id="join">Entrar</button>
+  </div>
+  <br>
+  <button id="talk" disabled>🎙️ Segure para Falar</button>
+  <audio id="remoteAudio" autoplay></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
