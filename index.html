@@ -4,15 +4,21 @@
   <meta charset="UTF-8">
   <title>Rádio WebRTC</title>
   <link rel="icon" href="data:,">
+  <style>
+    body { font-family: sans-serif; padding: 20px; text-align: center; }
+    input, button { padding: 10px; font-size: 16px; margin: 5px; }
+    #talk { background: #ff5252; color: white; border: none; border-radius: 8px; font-size: 18px; }
+    #talk:disabled { background: #ccc; }
+  </style>
 </head>
 <body>
-  <h2>Rádio PTT com PeerJS</h2>
-  <div>
-    <input type="text" id="room" placeholder="Nome da sala" />
-    <button id="host">Criar Sala</button>
-    <button id="join">Entrar</button>
-  </div>
-  <br>
+  <h2>📻 Rádio PTT com PeerJS</h2>
+
+  <input type="text" id="room" placeholder="Nome da sala" />
+  <button id="host">Criar Sala</button>
+  <button id="join">Entrar</button>
+
+  <br><br>
   <button id="talk" disabled>🎙️ Segure para Falar</button>
   <audio id="remoteAudio" autoplay></audio>
 
