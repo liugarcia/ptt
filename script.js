@@ -13,10 +13,10 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
   alert("Erro ao acessar o microfone: " + err.message);
 });
 
-// Criar sala
+// ID
 document.getElementById('host').onclick = () => {
   const roomId = document.getElementById('room').value.trim();
-  if (!roomId) return alert("Digite o nome da sala");
+  if (!roomId) return alert("Digite o ID");
 
   peer = new Peer(roomId, {
     host: '0.peerjs.com',
@@ -26,7 +26,7 @@ document.getElementById('host').onclick = () => {
   });
 
   peer.on('open', id => {
-    console.log("Sala criada:", id);
+    console.log("ID criado:", id);
     alert("Sala criada! Outro usuário pode entrar com esse nome.");
   });
 
@@ -48,7 +48,7 @@ document.getElementById('host').onclick = () => {
 // Entrar na sala
 document.getElementById('join').onclick = () => {
   const roomId = document.getElementById('room').value.trim();
-  if (!roomId) return alert("Digite o nome da sala");
+  if (!roomId) return alert("Digite o ID");
 
   peer = new Peer(undefined, {
     host: '0.peerjs.com',
