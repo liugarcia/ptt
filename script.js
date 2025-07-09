@@ -70,13 +70,32 @@ document.getElementById('join').onclick = () => {
   });
 };
 
-// Push-to-talk
-talkBtn.onmousedown = () => {
-  if (localStream) localStream.getAudioTracks()[0].enabled = true;
-};
-talkBtn.onmouseup = () => {
-  if (localStream) localStream.getAudioTracks()[0].enabled = false;
-};
-talkBtn.onmouseleave = () => {
-  if (localStream) localStream.getAudioTracks()[0].enabled = false;
-};
+// Funções para ativar/desativar microfone
+function ativarMicrofone() {
+  if (localStream) {
+    localStream.getAudioTracks()[0].enabled = true;
+    console.log("🎤 Microfone ativado");
+  }
+}
+
+function desativarMicrofone() {
+  if (localStream) {
+    localStream.getAudioTracks()[0].enabled = false;
+    console.log("🔇 Microfone desativado");
+  }
+}
+
+// Eventos desktop
+talkBtn.addEventListener('mousedown', ativarMicrofone);
+talkBtn.addEventListener('mouseup', desativarMicrofone);
+talkBtn.addEventListener('mouseleave', desativarMicrofone);
+
+// Eventos mobile
+talkBtn.addEventListener('touchstart', e => {
+  e.preventDefault();
+  ativarMicrofone();
+});
+talkBtn.addEventListener('touchend', e => {
+  e.preventDefault();
+  desativarMicrofone();
+});
