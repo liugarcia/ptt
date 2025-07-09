@@ -2,6 +2,8 @@ let localStream;
 let peer;
 let call;
 const talkBtn = document.getElementById('talk');
+const startSound = document.getElementById('startSound');
+const endSound = document.getElementById('endSound');
 
 // Captura o microfone e desativa por padrão
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
@@ -70,10 +72,12 @@ document.getElementById('join').onclick = () => {
   });
 };
 
-// Funções para ativar/desativar microfone
+// Funções para ativar/desativar microfone com som
 function ativarMicrofone() {
   if (localStream) {
     localStream.getAudioTracks()[0].enabled = true;
+    startSound.currentTime = 0;
+    startSound.play().catch(() => {}); // evita erro de autoplay
     console.log("🎤 Microfone ativado");
   }
 }
@@ -81,6 +85,8 @@ function ativarMicrofone() {
 function desativarMicrofone() {
   if (localStream) {
     localStream.getAudioTracks()[0].enabled = false;
+    endSound.currentTime = 0;
+    endSound.play().catch(() => {});
     console.log("🔇 Microfone desativado");
   }
 }
